@@ -107,4 +107,52 @@ RSpec.describe ChannelsController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    context 'User is team member' do
+      context 'User is the channel owner' do
+        it 'returns http success' do
+          team = create(:team)
+          team.users << @current_user
+          @channel = create(:channel, team: team, user: @current_user)
+
+          delete :destroy, params: { id: @channel.id }
+          expect(response).to have_http_status(:success)
+        end
+      end
+
+      context 'User is the team owner' do
+        it 'returns http success' do
+          team = create(:team, user: @current_user)
+          channel_owner = create(:user)
+          team.users << channel_owner
+          @channel = create(:channel, team: team, user: channel_owner)
+
+          delete :destroy, params: { id: @channel.id }
+          expect(response).to have_http_status(:success)
+        end
+      end
+
+      context "User isn't the team or channel owner" do
+        it 'returns http forbidden' do
+          team = create(:team)
+          team.users << @current_user
+          @channel = create(:channel, team: team)
+
+          delete :destroy, params: { id: @channel.id }
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+    end
+
+    context "User isn't team member" do
+      it 'returns http forbidden' do
+        team = create(:team)
+        @channel = create(:channel, team: team)
+
+        delete :destroy, params: { id: @channel.id }
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
 end
