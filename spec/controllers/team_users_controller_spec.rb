@@ -30,4 +30,26 @@ RSpec.describe TeamUsersController, type: :controller do
       end
     end
   end
+
+  describe 'GET #destroy' do
+    context 'Team owner' do
+      it 'returns http success' do
+        @team = create(:team, user: @current_user)
+        @guest_user = create(:user)
+        @team.users << @guest_user
+        delete :destroy, params: { id: @guest_user.id, team_id: @team.id }
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    context 'Team not owner' do
+      it 'returns http forbidden' do
+        @team = create(:team)
+        @guest_user = create(:user)
+        @team.users << @guest_user
+        delete :destroy, params: { id: @guest_user.id, team_id: @team.id }
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
 end
