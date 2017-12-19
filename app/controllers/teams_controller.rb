@@ -1,7 +1,7 @@
 class TeamsController < ApplicationControlleu
   before_action :set_team, only: [:destroy]
   before_action :set_by_slug_team, only: [:show]
-  
+
   def index
     @teams = current_user.teams
   end
@@ -21,18 +21,18 @@ class TeamsController < ApplicationControlleu
       end
     end
   end
-  
+
   def destroy
     authorize! :destroy, @team
     @team.destroy
 
     respond_to do |format|
-      format.json { head :no_content }
+      format.json { render json: true }
     end
   end
 
   private
-  
+
   def set_by_slug_team
     @team = Team.find_by(slug: params[:slug])
   end

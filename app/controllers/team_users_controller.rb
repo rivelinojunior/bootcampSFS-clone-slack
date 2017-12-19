@@ -7,7 +7,7 @@ class TeamUsersController < ApplicationController
 
     respond_to do |format|
       if @team_user.save
-        format.json { head :ok }
+        format.json { render :show, status: :created }
       else
         format.json { render json: @team_user.errors, status: :unprocessable_entity }
       end
@@ -19,11 +19,11 @@ class TeamUsersController < ApplicationController
     @team_user.destroy
 
     respond_to do |format|
-      format.json { head :no_content }
+      format.json { render json: true }
     end
   end
 
-  private 
+  private
 
   def set_team_user
     @team_user = TeamUser.find_by(params[:user_id], params[:team_id])
