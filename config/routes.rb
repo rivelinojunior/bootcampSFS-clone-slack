@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'talks/show'
+
   get 'channels/create'
 
   get 'channels/destroy'
