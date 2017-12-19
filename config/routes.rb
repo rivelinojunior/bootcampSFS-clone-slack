@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'team_users/create'
+
+  get 'team_users/destroy'
+
   get 'talks/show'
 
   get 'channels/create'
