@@ -2,7 +2,7 @@ $(document).on 'turbolinks:load', ->
   $(".add_user").on 'click', (e) =>
     $('#add_user_modal').modal('open')
     $('#team_user_team_id').val(e.target.id)
-  return false
+    return false
 
 $('.add_user_form').on 'submit', (e) ->
   $.ajax e.target.action,
@@ -20,5 +20,5 @@ $('.add_user_form').on 'submit', (e) ->
     error: (jqXHR, textStatus, errorThrown) ->
       Materialize.toast('Problem in add User &nbsp;<b>:(</b>', 4000, 'red')
 
-$('#add_user_modal').modal('close')
-return false
+  $('#add_user_modal').modal('close')
+  return false
