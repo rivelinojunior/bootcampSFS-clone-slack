@@ -26,7 +26,8 @@ class TeamUsersController < ApplicationController
   private
 
   def set_team_user
-    @team_user = TeamUser.find_by(params[:user_id], params[:team_id])
+    params[:user_id] ||= params[:id]
+    @team_user = TeamUser.where(user_id: params[:user_id], team_id: params[:team_id]).first
   end
 
   def team_user_params
