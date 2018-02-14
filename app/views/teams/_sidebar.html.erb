@@ -1,12 +1,18 @@
 <ul class="side-nav fixed side-nav-channel" id="side-bar-channel">
    <li>
       <div>
-         <span class="team_title"><%= @team.slug %></span>
-         <% if can? :destroy, @team %>
-         <a class="right team_icon remove_team" href="#">
-         <i class="material-icons" id="<%= @team.id %>">settings</i>
-         </a>
-         <% end %>
+        <span class="team_title"><%= @team.slug %></span>
+        <% if can? :destroy, @team %>
+          <a class="right team_icon remove_team" href="#">
+            <i class="material-icons" id="<%= @team.id %>">settings</i>
+          </a>
+        <% else %>
+          <a class="right team_icon exit_team" href="#"
+            data-user-id="<%= current_user.id %>"
+            data-team-id="<%= @team.id %>">
+            <i class="material-icons">exit_to_app</i>
+          </a>
+        <% end %>
       </div>
    </li>
    <li>
@@ -25,7 +31,7 @@
                         <div>
                            <a href="#" class="open_channel" id="<%= channel.id %>">
                            <span id="<%= channel.id %>">#<%= channel.slug %></span>
-                           </a>
+                           </>
                            <% if can? :destroy, channel %>
                            <a class="right remove_channel" href="#" id="<%= channel.id %>">
                            <i class="material-icons" id="<%= channel.id %>">settings</i>
