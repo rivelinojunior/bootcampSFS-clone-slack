@@ -17,3 +17,7 @@
 
 # ignore schema db
 /db/schema.rb
+
+#ignore files of plugins todo/tasks
+/*.tasks
+/*.todo
