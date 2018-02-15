@@ -1,6 +1,6 @@
 class InvitationsController < ApplicationController
   before_action :set_team, only: [:create]
-  before_action :set_invitation, only: [:update]
+  before_action :set_invitation, only: [:update, :destroy]
 
   def index
     @invitations = current_user.invitations
@@ -31,6 +31,12 @@ class InvitationsController < ApplicationController
     else
       format.json { render json: @invitation.errors, status: :unprocessable_entity}
     end
+  end
+
+  def destroy
+    authorize! :destroy, @invitation
+    @invitation.destroy
+    head :ok
   end
 
   private
