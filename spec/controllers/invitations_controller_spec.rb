@@ -11,6 +11,32 @@ RSpec.describe InvitationsController, type: :controller do
     sign_in @current_user
   end
 
+  describe 'GET #index' do
+    # para que os testes possam renderizarem os json
+    render_views
+    
+    before(:each) do
+      2.times do 
+        create(:invitation)
+      end
+
+      2.times do
+        create(:invitation, guest: @current_user)
+      end
+
+      get :index
+    end
+    
+    it 'return http success' do
+      expect(response).to have_http_status(:success)
+    end
+    
+    it 'response only invitations for me' do
+      response_hash = JSON.parse(response.body)
+      expect(response_hash['invitations'].count).to eql(2)
+    end
+  end
+  
   describe 'POST #create' do
     # para que os testes possam renderizarem os json
     render_views
