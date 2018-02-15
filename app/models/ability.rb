@@ -33,6 +33,10 @@ class Ability
       can [:create], Invitation do |i|
         i.team.user_id == user.id
       end
+
+      can [:update], Invitation do |i|
+        i.guest_id == user.id
+      end
     end
   end
 end
