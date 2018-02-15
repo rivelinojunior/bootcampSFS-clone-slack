@@ -11,8 +11,8 @@ development:
 
 test:
   <<: *default
-  database: onebitchat_exchance_test
+  database: onebitchat_test
 
 production:
   <<: *default
-  database: onebitchat_exchance_production
+  database: onebitchat_production
