@@ -1,6 +1,13 @@
 class InvitationsController < ApplicationController
   before_action :set_team, only: [:create]
 
+  def index
+    @invitations = current_user.invitations
+    respond_to do |format|
+        format.json { render :index, status: :ok }
+    end
+  end
+
   def create
     @invitation = Invitation.new(invitation_params)
     @invitation.user_id = @team.user.id
