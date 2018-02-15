@@ -14,9 +14,9 @@ RSpec.describe InvitationsController, type: :controller do
   describe 'GET #index' do
     # para que os testes possam renderizarem os json
     render_views
-    
+
     before(:each) do
-      2.times do 
+      2.times do
         create(:invitation)
       end
 
@@ -26,17 +26,17 @@ RSpec.describe InvitationsController, type: :controller do
 
       get :index
     end
-    
+
     it 'return http success' do
       expect(response).to have_http_status(:success)
     end
-    
+
     it 'response only invitations for me' do
       response_hash = JSON.parse(response.body)
       expect(response_hash['invitations'].count).to eql(2)
     end
   end
-  
+
   describe 'POST #create' do
     # para que os testes possam renderizarem os json
     render_views
@@ -59,7 +59,7 @@ RSpec.describe InvitationsController, type: :controller do
 
       it 'response with right params' do
         response_hash = JSON.parse(response.body)
-        
+
         expect(response_hash['user_id']).to eql(@team.user.id)
         expect(response_hash['guest_id']).to eql(@guest.id)
         expect(response_hash['team_id']).to eql(@team.id)
@@ -86,6 +86,45 @@ RSpec.describe InvitationsController, type: :controller do
 
       it 'return http forbidden' do
         expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
+
+  describe 'PUT #update' do
+    context 'ID is valid' do
+      context "It's the guest" do
+        before(:each) do
+          @invitation = create(:invitation, guest: @current_user)
+          put :update, params: { id: @invitation.id }
+        end
+
+        it 'return http success' do
+          expect(response).to have_http_status(:success)
+        end
+
+        it 'invitation with the attribute approved truth' do
+          expect(Invitation.last.approved).to eql(true)
+        end
+
+        it 'guest is part of the team' do
+          expect(@invitation.team.users.ids.include?(@current_user.id)).to eql(true)
+        end
+      end
+
+      context "It isn't the guest" do
+        it 'return http forbidden' do
+          invitation = create(:invitation)
+          put :update, params: { id: invitation.id }
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+    end
+
+    context "ID isn't valid" do
+      it 'return http not found' do
+        id_invalid = rand(999..9999)
+        put :update, params: { id: id_invalid }
+        expect(response).to have_http_status(404)
       end
     end
   end
