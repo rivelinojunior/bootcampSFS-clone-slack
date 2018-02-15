@@ -1,5 +1,6 @@
 class InvitationsController < ApplicationController
   before_action :set_team, only: [:create]
+  before_action :set_invitation, only: [:update]
 
   def index
     @invitations = current_user.invitations
@@ -22,10 +23,24 @@ class InvitationsController < ApplicationController
     end
   end
 
+  def update 
+    authorize! :update, @invitation
+    @invitation.approved = true
+    if @invitation.save
+      head :ok
+    else
+      format.json { render json: @invitation.errors, status: :unprocessable_entity}
+    end
+  end
+
   private
     
     def set_team
       @team = Team.find(params[:invitation][:team_id])
+    end
+
+    def set_invitation
+      @invitation = Invitation.find(params[:id])
     end
 
     def invitation_params
