@@ -128,4 +128,56 @@ RSpec.describe InvitationsController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    context 'ID is valid' do
+      context "It's owner of the team" do
+        before(:each) do
+          team = create(:team, user: @current_user)
+          invitation = create(:invitation, team: team)
+          delete :destroy, params: { id: invitation.id }
+        end
+
+        it 'return http success' do
+          expect(response).to have_http_status(:success)
+        end
+
+        it 'removed of the database' do
+          expect(Invitation.all.count).to eql(0)
+        end
+      end
+
+      context "It isn't owner of the team" do
+        context "It's guest of invitation" do
+          before(:each) do
+            invitation = create(:invitation, guest: @current_user)
+            delete :destroy, params: { id: invitation.id }
+          end
+
+          it 'return http success' do
+            expect(response).to have_http_status(:success)
+          end
+
+          it 'removed of the database' do
+            expect(Invitation.all.count).to eql(0)
+          end
+        end
+
+        context "It isn't guest of invitation" do
+          it 'return http forbidden' do
+            invitation = create(:invitation)
+            delete :destroy, params: { id: invitation.id }
+            expect(response).to have_http_status(:forbidden)
+          end
+        end
+      end
+    end
+
+    context "ID isn't valid" do
+      it 'return http notfound' do
+        delete :destroy, params: { id: rand(999..9999) }
+        expect(response).to have_http_status(404)
+      end
+    end
+  end
 end
