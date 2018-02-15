@@ -37,6 +37,10 @@ class Ability
       can [:update], Invitation do |i|
         i.guest_id == user.id
       end
+
+      can [:destroy], Invitation do |i|
+        i.team.user_id == user.id || i.guest_id == user.id
+      end
     end
   end
 end
