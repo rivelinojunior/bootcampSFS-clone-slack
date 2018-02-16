@@ -48,7 +48,7 @@ RSpec.describe InvitationsController, type: :controller do
         post :create, params: {
           invitation: {
             team_id: @team.id,
-            guest_id: @guest.id
+            email: @guest.email
           }
         }
       end
