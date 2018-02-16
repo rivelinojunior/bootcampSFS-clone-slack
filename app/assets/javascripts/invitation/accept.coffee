@@ -4,7 +4,9 @@ $(document).on 'turbolinks:load', ->
     $.ajax '/invitations/'+invitation_id,
         type: 'PUT',
         success: (data, text, jqXHR) ->
-          $('#invitation-'+invitation_id).remove()
+          run = () ->
+            window.location.replace("/");
+          setTimeout(run, 1000)
           Materialize.toast('Success in invite User &nbsp;<b>:(</b>', 4000, 'green')
         error: (jqXHR, textStatus, errorThrown) ->
           debugger
