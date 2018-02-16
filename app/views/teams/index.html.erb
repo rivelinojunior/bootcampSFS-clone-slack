@@ -19,19 +19,19 @@
       <a class="btn" href="#add_team_modal">New Team</a>
     </div>
   <% else %>
-    <h5>You have not created any teams yet</h5>
-    <h5>Create one now and empower your team!</h5>
+    <p>You have not created any teams yet</p>
+    <p>Create one now and empower your team!</p>
     <a class="btn" href="#add_team_modal">New Team</a>
   <% end %>
 </div>
 
 <div class="center row invitations">
-  <h5>Your Invitations</h5>
   <% if current_user.invitations.present? %>
-    <ul class="collection col m4 offset-m4 s10 offset-s1">
+    <h5>Your Invitations</h5>
+    <ul class="col m4 offset-m4 s10 offset-s1">
       <%= render current_user.invitations %>
     </ul>
   <% else %>
-    <p>You do not have invitations</p>
+    <h5>You do not have invitations</h5>
   <% end %>
 </div>

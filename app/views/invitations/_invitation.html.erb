@@ -1,9 +1,12 @@
- <li class="invitation">
-  <div clas="section">
-    <h5 class="invitation-team"><%= invitation.team.slug %></h5>
-    <p class="invitation-user">Sended by <%= invitation.user.name %></p>
-    <a class="waves-effect green waves-light btn">Accept</a>
-    <a class="waves-effect red waves-light btn">Reject</a>
+<li class="invitation" id="invitation-<%= invitation.id %>">
+  <div class="divider"></div>
+  <h5 class="invitation-team"><%= invitation.team.slug %></h5>
+  <p class="invitation-user">Sended by <%= invitation.user.name %></p>
+  <div class="actions">
+    <a class="waves-effect red waves-light btn btn-reject-invitation" 
+      data-invitation-id="<%= invitation.id %>">Reject</a>
+    <a class="waves-effect green waves-light btn btn-accept-invitation"  
+      data-invitation-id="<%= invitation.id %>">Accept</a>
   </div>
   <div class="divider"></div>
 </li>

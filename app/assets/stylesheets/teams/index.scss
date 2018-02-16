@@ -1,12 +1,24 @@
 .no_team{
-  margin-top: 15%;
-  h5{
+  margin-top: 5%;
+  h5 {
+    color: #616161;
+  }
+  
+  p {
+    font-size: 1.2rem;
     color: #616161;
   }
 }
 
 .invitations {
+  margin-top: 5%;
+
   h5 {
     color: #616161;
+  }
+  .invitation {
+    .actions {
+      padding-bottom: 15px;
+    }
   }
 }
