@@ -6,6 +6,7 @@ json.messages do
     json.date message.created_at.strftime("%d/%m/%y")
     json.user do
       json.extract! message.user, :id, :name, :email
+      json.avatar message.user.avatar, :url 
     end
   end
 end
