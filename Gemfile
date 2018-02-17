@@ -20,6 +20,7 @@ gem 'materialize-sass', '~> 0.98.2'
 gem 'material_icons'
 gem 'redis', '~> 3.3.3'
 gem 'carrierwave', '~> 1.0'
+gem 'mini_magick'
 
 group :test do
   gem "factory_girl_rails"

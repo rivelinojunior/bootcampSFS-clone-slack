@@ -1,7 +1,7 @@
 FROM ruby:2.3-slim
 # Instala nossas dependencias
 RUN apt-get update && apt-get install -qq -y --no-install-recommends \
-      build-essential nodejs libpq-dev
+      build-essential nodejs libpq-dev imagemagick
 # Seta nosso path
 ENV INSTALL_PATH /onebitchat
 # Cria nosso diretório
