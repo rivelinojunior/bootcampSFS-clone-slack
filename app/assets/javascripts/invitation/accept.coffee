@@ -9,7 +9,6 @@ $(document).on 'turbolinks:load', ->
           setTimeout(run, 1000)
           Materialize.toast('Success in invite User &nbsp;<b>:(</b>', 4000, 'green')
         error: (jqXHR, textStatus, errorThrown) ->
-          debugger
           Materialize.toast('Problem in add User &nbsp;<b>:(</b>', 4000, 'red')
 
     return false
