@@ -21,3 +21,6 @@
 #ignore files of plugins todo/tasks
 /*.tasks
 /*.todo
+
+#ignore uploads
+public/uploads
