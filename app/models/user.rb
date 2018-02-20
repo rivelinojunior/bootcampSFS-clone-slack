@@ -15,4 +15,9 @@ class User < ApplicationRecord
   def my_teams
     self.teams + self.member_teams
   end
+
+  def talk_unread?(team_id, user_id)
+    @talk = Talk.find_by(user_one_id: [self.id, user_id], user_two_id: [self.id, user_id], team: team_id)
+    @talk.notify_user_id == self.id
+  end
 end
