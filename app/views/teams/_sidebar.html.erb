@@ -29,12 +29,13 @@
                      <% @team.channels.each do |channel| %>
                      <li class="channel_<%= channel.id %>">
                         <div>
-                           <a href="#" class="open_channel" id="<%= channel.id %>">
+                           <a href="#" class="open_channel btn_channel_<%= channel.id %> <%= channel.notify_users.include?(current_user.id) ? 'channel_highlight' : ''%>" 
+                              id="<%= channel.id %>">
                            <span id="<%= channel.id %>">#<%= channel.slug %></span>
-                           </>
+                           </a>
                            <% if can? :destroy, channel %>
                            <a class="right remove_channel" href="#" id="<%= channel.id %>">
-                           <i class="material-icons" id="<%= channel.id %>">settings</i>
+                            <i class="material-icons" id="<%= channel.id %>">settings</i>
                            </a>
                            <% end %>
                         </div>
