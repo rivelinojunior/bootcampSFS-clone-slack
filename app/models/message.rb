@@ -9,8 +9,13 @@ class Message < ApplicationRecord
   private
 
     def notify_users
-      self.messagable.notify_users = self.messagable.team.my_users.pluck(:id)
-      self.messagable.notify_users.delete self.user.id
+      if self.messagable_type == "Channel"
+        self.messagable.notify_users = self.messagable.team.my_users.pluck(:id)
+        self.messagable.notify_users.delete self.user.id
+      elsif self.messagable_type == "Talk"
+        user_id = self.messagable.user_one_id == self.user.id ? self.messagable.user_two_id : self.messagable.user_one_id 
+        self.messagable.notify_user_id = user_id
+      end        
       self.messagable.save
     end
 end
