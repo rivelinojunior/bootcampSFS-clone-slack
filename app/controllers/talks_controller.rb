@@ -1,8 +1,19 @@
 class TalksController < ApplicationController
-  before_action :set_talk, only: [:show]
+  before_action :set_talk, only: [:show, :update]
   
   def show
     authorize! :read, @talk
+  end
+
+  def update
+    @talk.notify_user_id = nil
+    respond_to do |format|
+      if @talk.save
+        format.json { render json: true }
+      else
+        format.json { render json: @channel.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
