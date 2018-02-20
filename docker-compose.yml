@@ -19,6 +19,8 @@ services:
       - 'postgres'
       - 'redis'
     build: .
+    stdin_open: true
+    tty: true 
     command: bash start.sh
     ports:
       - '3000:3000'
