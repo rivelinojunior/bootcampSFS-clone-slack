@@ -31,6 +31,7 @@ window.open = (id, type) ->
           set_chat(data['user']['name'])
         else
           set_chat(data['slug'])
+          window.open_channel(id)
 
         window.change_chat(id, type, $(".team_id").val())
 
