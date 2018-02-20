@@ -8,7 +8,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
 
   def default_url(*_args)
-    'uploads/avatar_default.jpeg'
+    '/uploads/avatar_default.jpeg'
   end
 
   version :thumb do
