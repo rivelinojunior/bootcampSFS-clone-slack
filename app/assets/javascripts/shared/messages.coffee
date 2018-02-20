@@ -29,6 +29,7 @@ window.open = (id, type) ->
       success: (data, text, jqXHR) ->
         if type == "talks"
           set_chat(data['user']['name'])
+          window.open_talk($(".team_id").val(), id)
         else
           set_chat(data['slug'])
           window.open_channel(id)
