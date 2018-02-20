@@ -68,7 +68,8 @@
                         <% if user != current_user %>
                         <li class="user_<%= user.id %>">
                            <div>
-                              <a href="#" id="<%= user.id %>" class="open_user">
+                              <a href="#" id="<%= user.id %>"
+                                class="open_user btn_user_<%= user.id %> <%= current_user.talk_unread?(@team.id, user.id) ? 'talk_highlight' : ''%>">
                                 <span id="<%= user.id %>"><%= user.name %></span>
                               </a>
                               <% if can? :destroy, @team %>
