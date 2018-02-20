@@ -1,5 +1,5 @@
 class ChannelsController < ApplicationController
-  before_action :set_channel, only: %i[destroy show]
+  before_action :set_channel, only: %i[destroy show update]
 
   def create
     @channel = Channel.new(channel_params)
@@ -8,6 +8,17 @@ class ChannelsController < ApplicationController
     respond_to do |format|
       if @channel.save
         format.json { render :show, status: :created }
+      else
+        format.json { render json: @channel.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    @channel.open_channel current_user
+    respond_to do |format|
+      if @channel.save
+        format.json { render json: true }
       else
         format.json { render json: @channel.errors, status: :unprocessable_entity }
       end
