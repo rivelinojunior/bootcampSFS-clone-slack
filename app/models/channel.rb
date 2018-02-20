@@ -7,4 +7,7 @@ class Channel < ApplicationRecord
   validates :slug, format: { with: /\A[a-zA-Z0-9]+\Z/ }
   validates_uniqueness_of :slug, :scope => :team_id
 
+  def open_channel(user)
+    self.notify_users.delete user.id
+  end
 end
