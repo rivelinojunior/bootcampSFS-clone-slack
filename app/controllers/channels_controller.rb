@@ -15,6 +15,7 @@ class ChannelsController < ApplicationController
   end
 
   def update
+    authorize! :update, @channel
     @channel.open_channel current_user
     respond_to do |format|
       if @channel.save
