@@ -16,6 +16,7 @@ class Message < ApplicationRecord
         user_id = self.messagable.user_one_id == self.user.id ? self.messagable.user_two_id : self.messagable.user_one_id 
         self.messagable.notify_user_id = user_id
       end        
-      self.messagable.save
+      
+      HighlightBroadcastJob.perform_later self.messagable if self.messagable.save
     end
 end
