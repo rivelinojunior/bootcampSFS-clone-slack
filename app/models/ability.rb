@@ -15,8 +15,12 @@ class Ability
         c.team.user_id == user.id || c.team.users.where(id: user.id).present?
       end
 
-      can [:destroy, :update], Channel do |c|
+      can [:destroy], Channel do |c|
         c.team.user_id == user.id || c.user_id == user.id
+      end
+
+      can [:update], Channel do |c|
+        c.team.user_id == user.id || c.team.users.where(id: user.id).present?
       end
 
       #Talk ---
