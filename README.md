@@ -23,7 +23,7 @@ The steps below will help you in the building this project in the development an
 
 ### 1. Clone the Project
 ```
-git clone git@github.com:rivelinojunior/bootcampSFS-onebitbot.git
+git clone git@github.com:rivelinojunior/bootcampSFS-clone-slack.git
 ```
 
 ### 2. Building the project with docker/docker-compose
